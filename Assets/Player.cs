@@ -1,14 +1,15 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     public PlayerInput playerInput;
-    public EntityMovement entityMovement;
+    public Rigidbody2D rb;
+    public float moveSpeed = 9f;
+
     private InputAction movementAction;
 
-
-    public Rigidbody2D rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -28,6 +29,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        entityMovement.Move(movementAction.ReadValue<Vector2>());
+        //if (movementAction.ReadValue<Vector2>() == Vector2.zero)
+        //{
+        //    entityMovement.rb.linearVelocity = Vector2.zero;
+        //}
+        rb.linearVelocity = movementAction.ReadValue<Vector2>() * moveSpeed;
     }
 }
