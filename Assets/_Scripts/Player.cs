@@ -1,3 +1,4 @@
+using System;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,9 +10,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 9f;
 
     private InputAction movementAction;
-
-
-    public Rigidbody2D rb;
+    private InputAction interactAction;
 
     [SerializeField] private DialogueText dialogueText;
 
@@ -19,19 +18,31 @@ public class Player : MonoBehaviour
 
     public IInterractable interractable { get; set; }
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         movementAction = playerInput.actions.FindAction("Move");
+        interactAction = playerInput.actions.FindAction("Interact");
+
+        interactAction.performed += Interact;
     }
 
     private void OnEnable()
     {
+
         movementAction.Enable();
+        interactAction.Enable();
     }
     private void OnDisable()
     {
         movementAction.Disable();
+        interactAction.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        interactAction.performed -= Interact;
     }
 
     // Update is called once per frame
@@ -42,17 +53,19 @@ public class Player : MonoBehaviour
         //    entityMovement.rb.linearVelocity = Vector2.zero;
         //}
         rb.linearVelocity = movementAction.ReadValue<Vector2>() * moveSpeed;
+
     }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        
+    }
+
+    private void Interact(InputAction.CallbackContext context)
+    {
+        if (interractable != null)
         {
-            if (interractable != null)
-            {
-
-                interractable.Interact(this);
-
-            }
+            interractable.Interact(this);
         }
     }
 }
