@@ -10,13 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c68eaccc75716c4683d89e78fc5b58c, type: 3}
-  m_Name: Test
+  m_Name: No
   m_EditorClassIdentifier: 
   dialogue:
-  - Hi there
-  - Do you know what the different between your mom and a car ?
-  responds:
-  - respondText: Yes
-    dialogueObj: {fileID: 11400000, guid: 2e8f91abbe72e3447ac85edc42ebb5d5, type: 2}
-  - respondText: No
-    dialogueObj: {fileID: 11400000, guid: 6d83226de31a9de4facf1332ca141144, type: 2}
+  - Not everyone can get inside a car.
+  responds: []

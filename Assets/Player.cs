@@ -11,6 +11,14 @@ public class Player : MonoBehaviour
     private InputAction movementAction;
 
 
+    public Rigidbody2D rb;
+
+    [SerializeField] private DialogueText dialogueText;
+
+    public DialogueText DialogueText => dialogueText;
+
+    public IInterractable interractable { get; set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -34,5 +42,17 @@ public class Player : MonoBehaviour
         //    entityMovement.rb.linearVelocity = Vector2.zero;
         //}
         rb.linearVelocity = movementAction.ReadValue<Vector2>() * moveSpeed;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (interractable != null)
+            {
+
+                interractable.Interact(this);
+
+            }
+        }
     }
 }
