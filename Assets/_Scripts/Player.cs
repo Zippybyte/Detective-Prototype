@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,9 +18,9 @@ public class Player : MonoBehaviour
 
     public DialogueText DialogueText => dialogueText;
 
-    public IInterractable interractable { get; set; }
-
-
+    public IInterractable interractable { get; set; } // Probably deprecate this in the future
+    [NonSerialized] public List<Interactable> interactablesInRange = new List<Interactable>() { };
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -66,6 +68,25 @@ public class Player : MonoBehaviour
         if (interractable != null)
         {
             interractable.Interact(this);
+        }
+
+        if (interactablesInRange.Count == 1)
+        {
+            interactablesInRange[0].Interact(this);
+        }
+        // Interact with the closest interactable if there are multiple in range
+        else if (interactablesInRange.Count > 1)
+        {
+            Interactable closest = interactablesInRange[0];
+            for (int i = 1; i < interactablesInRange.Count; i++)
+            {
+                if (interactablesInRange[i].GetDistance(gameObject) < closest.GetDistance(gameObject))
+                {
+                    closest = interactablesInRange[i];
+                }
+            }
+
+            closest.Interact(this);
         }
     }
 }
