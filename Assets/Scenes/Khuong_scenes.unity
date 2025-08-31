@@ -238,6 +238,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textLabel: {fileID: 1177546348}
   dialogueBox: {fileID: 1715021152}
+  onDialogueFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &107100935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +282,8 @@ GameObject:
   - component: {fileID: 153739828}
   - component: {fileID: 153739827}
   - component: {fileID: 153739831}
+  - component: {fileID: 153739832}
+  - component: {fileID: 153739833}
   m_Layer: 0
   m_Name: Circle (1)
   m_TagString: Untagged
@@ -442,6 +447,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueObj: {fileID: 11400000, guid: 979522a3586e79242a65c6dff0de8b1b, type: 2}
+--- !u!114 &153739832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153739826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469e2273cf84a264c949eb4277ed4127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueObj: {fileID: 11400000, guid: 979522a3586e79242a65c6dff0de8b1b, type: 2}
+  events:
+  - name: Yes
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 153739831}
+          m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
+          m_MethodName: UpdateDialogueObj
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 5b96dd1bf9ca3c64298955987868855a, type: 2}
+            m_ObjectArgumentAssemblyTypeName: DialogueSO, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: No
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 153739826}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &153739833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153739826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469e2273cf84a264c949eb4277ed4127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueObj: {fileID: 11400000, guid: 5b96dd1bf9ca3c64298955987868855a, type: 2}
+  events:
+  - name: No
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 153739826}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &609835084
 GameObject:
   m_ObjectHideFlags: 0
