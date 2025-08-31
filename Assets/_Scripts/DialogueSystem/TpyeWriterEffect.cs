@@ -4,12 +4,24 @@ using System.Collections;
 public class TpyeWriterEffect : MonoBehaviour
 {
     [SerializeField] private int writingSpeed;
-    public Coroutine Run(string texttotype, TMP_Text textLabel)
+    //make a ship bbutton by pressing space
+    // todo: make the run/ stop function work invididually
+    public bool IsRunning { get;  private set; }
+
+    private Coroutine typingCoroutine;
+
+    public void Run(string texttotype, TMP_Text textLabel)
     {
-        return StartCoroutine(TypeText(texttotype, textLabel));
+        typingCoroutine=StartCoroutine(TypeText(texttotype, textLabel));
+    }
+    public void Stop()
+    {
+        StopCoroutine(typingCoroutine);
+        IsRunning = false;
     }
     private IEnumerator TypeText(string texttotype, TMP_Text textLabel)
     {
+        IsRunning = true;   
         if (writingSpeed<=0)
         {
             writingSpeed = 1;
@@ -31,7 +43,8 @@ public class TpyeWriterEffect : MonoBehaviour
             yield return null;
         }
 
-        textLabel.text = texttotype;
+        
+        IsRunning = false;
 
     }
 }

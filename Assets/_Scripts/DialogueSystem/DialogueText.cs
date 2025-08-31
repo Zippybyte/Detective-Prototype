@@ -41,8 +41,15 @@ public class DialogueText : MonoBehaviour
         for (int i = 0; i < dialogueObj.Dialogue.Length; i++)
         {
             string dialogue = dialogueObj.Dialogue[i];
-            yield return TypeWriterEffect.Run(dialogue, textLabel);
+
+            yield return RunTypingEffect(dialogue); 
+            /*yield return TypeWriterEffect.Run(dialogue, textLabel);*/
+            //TypeWriter is void 
+            textLabel.text = dialogue;
+
             if (i == dialogueObj.Dialogue.Length - 1 && dialogueObj.HasResponses) break;
+
+            yield return null;
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
         if (dialogueObj.HasResponses)
@@ -55,6 +62,21 @@ public class DialogueText : MonoBehaviour
 
         }
         
+    }
+
+    private IEnumerator RunTypingEffect(string dialogue)
+    {
+        TypeWriterEffect.Run(dialogue, textLabel);
+        
+        while (TypeWriterEffect.IsRunning)
+        {
+            yield return null;
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                TypeWriterEffect.Stop(); 
+            }
+        }
+
     }
 
     private void closeDialogueBox()
