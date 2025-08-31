@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Events;
 public class DialogueText : MonoBehaviour
 {
     //simple texting thing up
@@ -11,6 +12,7 @@ public class DialogueText : MonoBehaviour
     //to change size pf text box by scean, go to canvas scaler in canva gameobj
     private TpyeWriterEffect TypeWriterEffect;
     private RepsondHandler repsondHandler;
+    public UnityEvent onDialogueFinished;
 
     public bool isOpen {  get; private set; }   
     private void Start()
@@ -29,6 +31,10 @@ public class DialogueText : MonoBehaviour
         StartCoroutine(StepThroughDialogue(dialogueObj));
     }
 
+    public void AddResponesEvent(ResponesEvent[] responesEvents)
+    {
+        repsondHandler.AddResponseEvent(responesEvents);
+    }
     private IEnumerator StepThroughDialogue(DialogueSO dialogueObj)
     {
         // like the wave manager we did, this loop go through each arry in the SO and run the function run
@@ -79,11 +85,12 @@ public class DialogueText : MonoBehaviour
 
     }
 
-    private void closeDialogueBox()
+    public void closeDialogueBox()
     {
         isOpen= false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
+        onDialogueFinished?.Invoke();
     }
 
 }

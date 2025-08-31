@@ -11,23 +11,31 @@ public class RepsondHandler: MonoBehaviour
     [SerializeField] private RectTransform respondContainer;
 
     private DialogueText dialogueText;
-
+    private ResponesEvent[] responesEvents;
     
     private List<GameObject> tempResponseButton = new List<GameObject>();
     private void Start()
     {
         dialogueText = GetComponent<DialogueText>();   
     }
+
+    public void AddResponseEvent(ResponesEvent[] responesEvents)
+    {
+        this.responesEvents = responesEvents;
+    }
     public void ShowResponses(Respond[] responses)
     {
         float responseBoxHeight = 0;
-
-        foreach(Respond response in responses)
+        //change the loop into for loop to addrease the RespondEvent
+        for (int i = 0; i < responses.Length; i++) 
         {
+            Respond response = responses[i];
+            int responesIndex = i;
+
             GameObject respondButton = Instantiate(respondButtonTemplate.gameObject, respondContainer);
             respondButton.SetActive(true);
             respondButton.GetComponent<TMP_Text>().text = response.RespondText;
-            respondButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response));
+            respondButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response,responesIndex));
             tempResponseButton.Add(respondButton);
             responseBoxHeight += respondButtonTemplate.sizeDelta.y;
             
@@ -37,13 +45,28 @@ public class RepsondHandler: MonoBehaviour
         repsonseBox.gameObject.SetActive(true);
 
     }
-    public void OnPickedResponse(Respond response)
+    // add a new parameter for event
+    public void OnPickedResponse(Respond response, int responseIndex)
     {
         repsonseBox.gameObject.SetActive(false);
         foreach (GameObject button in  tempResponseButton)
         {
             Destroy(button);
         }
-        dialogueText.ShowDialogue(response.DialogueObj);
+        // we check if there is an event on that respond
+        if (responesEvents != null && responseIndex <= responesEvents.Length)
+        {
+            responesEvents[responseIndex].OnPickedResponse?.Invoke();
+        }
+        responesEvents = null;
+        if (response.DialogueObj)
+        {
+            dialogueText.ShowDialogue(response.DialogueObj);
+        }
+        else
+        {
+            dialogueText.closeDialogueBox();
+        }
     }
 }
+    
