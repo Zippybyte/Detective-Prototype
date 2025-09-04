@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class DoorInteract : MonoBehaviour
 {
     public Interactable interactable;
-    
+    public GameObject ButtonMenu;
 
     private void Start()
     {
@@ -18,6 +18,7 @@ public class DoorInteract : MonoBehaviour
     private void OpenDoor()
     {
         // Trigger some sort of screen transition here
-        SceneManager.LoadScene("ZippyScene2");
+        //SceneManager.LoadScene("ZippyScene2");
+        ButtonMenu.SetActive(true);
     }
 }
