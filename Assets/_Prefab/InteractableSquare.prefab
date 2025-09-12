@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3121178157245526103}
   - component: {fileID: 7313400101551251609}
-  - component: {fileID: 6885307910516905470}
+  - component: {fileID: 5995589733491514357}
   - component: {fileID: 1815344145299230262}
   m_Layer: 0
   m_Name: InteractableSquare
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6885307910516905470
+--- !u!114 &5995589733491514357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3883224989891672314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f107d5b48b66d72428125a0b1495566c, type: 3}
+  m_Script: {fileID: 11500000, guid: b6f767501684a4f4eb70df48ede2d305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7313400101551251609}

@@ -4,7 +4,6 @@ using UnityEngine;
 public class Interactable : MonoBehaviour, IInterractable
 {
     public event Action OnInteract;
-    public SpriteRenderer spriteRenderer;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,16 +26,7 @@ public class Interactable : MonoBehaviour, IInterractable
         }
     }
 
-    public virtual void Interact(Player player)
-    {
-        if (spriteRenderer != null)
-        {
-            if (spriteRenderer.color == Color.red)
-                spriteRenderer.color = Color.white;
-            else
-                spriteRenderer.color = Color.red;
-        }
-
+    public virtual void Interact(Player player) {
         OnInteract?.Invoke();
     }
 
